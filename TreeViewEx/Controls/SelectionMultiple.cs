@@ -215,6 +215,9 @@
         #endregion
 
         #region Overrides InputSubscriberBase
+
+        TreeViewExItem mouse_down_item = null;
+
         internal override void OnMouseDown(MouseButtonEventArgs e)
         {
             base.OnMouseDown(e);
@@ -224,9 +227,38 @@
             if (e.ChangedButton != MouseButton.Left && !(e.ChangedButton == MouseButton.Right && item.ContextMenu != null)) return;            
             if (item.IsEditing) return;
 
+            if( !IsShiftKeyDown && !IsControlKeyDown && item.IsSelected )
+            {
+              mouse_down_item = item;
+            }
+            else
+            {
+              mouse_down_item = null;
             SelectSingleItem(item);
-
             FocusHelper.Focus(item);
+        }
+        }
+
+        internal override void OnMouseUp(MouseButtonEventArgs e)
+        {
+            base.OnMouseUp(e);
+
+            TreeViewExItem item = GetTreeViewItemUnderMouse(e.GetPosition(treeViewEx));
+            if (item == null) return;
+            if (e.ChangedButton != MouseButton.Left && !(e.ChangedButton == MouseButton.Right && item.ContextMenu != null)) return;
+            if (item.IsEditing) return;
+
+            //Left-clicking on an item within a selection should select just that item, but only on mouse-up
+            //so that click-and-drag will still work with groups.
+            if( e.ChangedButton == MouseButton.Left )
+            {
+              if(  !IsShiftKeyDown && !IsControlKeyDown && item != null && item == mouse_down_item )
+              {
+                SelectSingleItem(item);
+            FocusHelper.Focus(item);
+        }
+              mouse_down_item = null;
+            }
         }
 
         private void SelectWithShift(TreeViewExItem item)
