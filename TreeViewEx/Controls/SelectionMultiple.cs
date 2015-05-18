@@ -399,6 +399,8 @@
 
         public void ClearObsoleteItems(IEnumerable<object> items)
         {
+			if (treeViewEx.SelectedItems.IsReadOnly) return;
+
             foreach (object itemToUnSelect in items)
             {
                 if (treeViewEx.SelectedItems.Contains(itemToUnSelect)) treeViewEx.SelectedItems.Remove(itemToUnSelect);
