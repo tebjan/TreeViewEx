@@ -12,4 +12,4 @@ $content = $content -replace '\$version\$',$versionStr
 
 $content | Out-File $root\nuget\Package.compiled.nuspec
 
-& $root\NuGet\NuGet.exe pack $root\nuget\Package.compiled.nuspec
+& $root\nuget\NuGet.exe pack $root\nuget\Package.compiled.nuspec
