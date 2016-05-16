@@ -155,14 +155,8 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <AppDesigner Include="Properties\" />
-    <None Include="NuGet\TreeViewEx.nuspec" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="NuGet\lib\net40\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="tools\NuGet.exe" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>rem del /s /f /q $(ProjectDir)\NuGet\lib
