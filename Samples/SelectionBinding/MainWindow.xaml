@@ -2,7 +2,7 @@
     x:Class="BindingSample.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:Controls="clr-namespace:System.Windows.Controls;assembly=TreeViewEx" 
+    xmlns:Controls="clr-namespace:System.Windows.Controls;assembly=DotNetProjects.TreeViewEx" 
     xmlns:Model1="clr-namespace:BindingSample.Model" 
     Title="MainWindow" Height="350" Width="1000">
     <Window.Resources>
