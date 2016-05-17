@@ -24,6 +24,6 @@
 			<TextBlock Text="{Binding MemoryAfterLoad, ElementName=this}" />
 		</StackPanel>
 		<Controls:TreeViewEx x:Name="tree" DockPanel.Dock="Top"
-            AutomationProperties.Name="TestApp2Tree" ItemsSource="{Binding Path=Children}" AlternationCount="1" />
+            AutomationProperties.Name="TestApp2Tree" ItemsSource="{Binding Path=Children}" SelectionMode="Extended" />
 	</DockPanel>
 </Window>

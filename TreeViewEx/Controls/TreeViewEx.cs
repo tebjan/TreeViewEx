@@ -75,7 +75,9 @@ namespace System.Windows.Controls
         
         public static readonly DependencyProperty IsVirtualizingProperty =
             DependencyProperty.Register("IsVirtualizing", typeof(bool), typeof(TreeViewEx), new PropertyMetadata(false));
-        
+
+        public static readonly DependencyProperty SelectionModeProperty =
+                   DependencyProperty.Register("SelectionMode", typeof(SelectionMode), typeof(TreeViewEx), new PropertyMetadata(SelectionMode.Extended));
 
         internal TreeViewExAutomationPeer automationPeer;
 
@@ -127,6 +129,12 @@ namespace System.Windows.Controls
         {
             get { return (bool)GetValue(IsVirtualizingProperty); }
             set { SetValue(IsVirtualizingProperty, value); }
+        }
+
+        public SelectionMode SelectionMode
+        {
+            get { return (SelectionMode)GetValue(SelectionModeProperty); }
+            set { SetValue(SelectionModeProperty, value); }
         }
 
         public Brush BackgroundSelectionRectangle

@@ -47,6 +47,11 @@ namespace System.Windows.Controls
 
         internal override void OnMouseDown(MouseButtonEventArgs e)
         {
+            if (TreeView.SelectionMode != SelectionMode.Extended)
+            {
+                return;
+            }
+
             if (Mouse.LeftButton == MouseButtonState.Released)
             {
                 return;

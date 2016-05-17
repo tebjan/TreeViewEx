@@ -190,14 +190,13 @@
 
         private void SelectSingleItem(TreeViewExItem item)
         {
-
             // selection with SHIFT is not working in virtualized mode. Thats because the Items are not visible.
             // Therefor the children cannot be found/selected.
-            if (IsShiftKeyDown && treeViewEx.SelectedItems.Count > 0 && !treeViewEx.IsVirtualizing)
+            if (TreeView.SelectionMode != SelectionMode.Single && IsShiftKeyDown && treeViewEx.SelectedItems.Count > 0 && !treeViewEx.IsVirtualizing)
             {
                 SelectWithShift(item);
             }
-            else if (IsControlKeyDown)
+            else if (TreeView.SelectionMode != SelectionMode.Single && IsControlKeyDown)
             {
                 ToggleItem(item);
             }
