@@ -2,8 +2,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/TreeViewEx;component/themes/EditTextBox.xaml" />
-        <ResourceDictionary Source="/TreeViewEx;component/themes/TreeViewEx.xaml" />
-        <ResourceDictionary Source="/TreeViewEx;component/themes/Aero.NormalColor.xaml" />
+        <ResourceDictionary Source="/DotNetProjects.TreeViewEx;component/themes/EditTextBox.xaml" />
+        <ResourceDictionary Source="/DotNetProjects.TreeViewEx;component/themes/TreeViewEx.xaml" />
+        <ResourceDictionary Source="/DotNetProjects.TreeViewEx;component/themes/Aero.NormalColor.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

@@ -2,7 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
                     xmlns:Controls="clr-namespace:System.Windows.Controls">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/TreeViewEx;component/themes/TreeViewExItem.xaml" />
+        <ResourceDictionary Source="/DotNetProjects.TreeViewEx;component/themes/TreeViewExItem.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <Style TargetType="{x:Type Controls:TreeViewExItem}" BasedOn="{StaticResource TreeViewExBaseStyle}">
