@@ -201,6 +201,8 @@
                         <Trigger Property="Controls:TreeViewExItem.IsEditing" Value="True">
                             <Setter TargetName="content" Property="ContentPresenter.ContentTemplate" 
                                     Value="{Binding TemplateEdit, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Controls:TreeViewExItem}, AncestorLevel=1}}"/>
+                            <Setter TargetName="content" Property="ContentPresenter.ContentTemplateSelector" 
+                                    Value="{Binding TemplateSelectorEdit, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Controls:TreeViewExItem}, AncestorLevel=1}}"/>
                             <Setter Property="Padding" Value="0" />
                             <Setter Property="Control.Background"
                                     Value="{Binding BackgroundSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Controls:TreeViewExItem}, AncestorLevel=1}}" />
