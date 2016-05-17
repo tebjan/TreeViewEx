@@ -101,8 +101,6 @@ _TeamCity*
 _NCrunch_*
 .*crunch*.local.xml
 
-# NuGet
-NuGet.exe
 
 # MightyMoose
 *.mm.*
