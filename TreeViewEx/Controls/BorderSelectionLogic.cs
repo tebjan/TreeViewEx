@@ -64,7 +64,15 @@ namespace System.Windows.Controls
 
         internal override void OnMouseMove(MouseEventArgs e)
         {
-            HandleInput(e);
+            Point mousePos = GetMousePositionRelativeToContent();
+            Vector diff = startPoint - mousePos;
+
+            //only start selection if rect bigger than drag distance
+            if (e.LeftButton == MouseButtonState.Pressed
+                && (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance || Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
+            {
+                HandleInput(e);
+            }
         }
 
         internal override void OnMouseUp(MouseButtonEventArgs e)

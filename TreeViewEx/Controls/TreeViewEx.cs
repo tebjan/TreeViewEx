@@ -269,6 +269,7 @@ namespace System.Windows.Controls
         }
 
         internal ISelectionStrategy Selection { get; private set; }
+        public bool IsDragging => dragNDropController.IsDragging;
 
         #endregion
 

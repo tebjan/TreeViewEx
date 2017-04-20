@@ -214,9 +214,9 @@
         #endregion
 
         #region Overrides InputSubscriberBase
-        internal override void OnMouseDown(MouseButtonEventArgs e)
+        internal override void OnMouseUp(MouseButtonEventArgs e)
         {
-            base.OnMouseDown(e);
+            base.OnMouseUp(e);
 
             TreeViewExItem item = GetTreeViewItemUnderMouse(e.GetPosition(treeViewEx));
             if (item == null) return;

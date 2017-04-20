@@ -54,6 +54,10 @@ namespace System.Windows.Controls.DragNDrop
 
         public bool Enabled { get; set; }
         private bool CanDrag { get { return draggableItems != null && draggableItems.Count > 0; } }
+
+        public bool IsDragging { get; private set; }
+
+        private Point dragStartPoint;
         internal override void OnMouseDown(MouseButtonEventArgs e)
         {
             base.OnMouseDown(e);
@@ -62,10 +66,11 @@ namespace System.Windows.Controls.DragNDrop
             // initalize draggable items on click. Doing that in mouse move results in drag operations,
             // when the border is visible.
             draggableItems = GetDraggableItems(e.GetPosition(TreeView));
-            //if (CanDrag)
-            //{
-                //e.Handled = true;
-            //}
+
+            if (CanDrag)
+            {
+                dragStartPoint = e.GetPosition(null);
+            }
         }
 
         internal override void OnMouseUp(MouseButtonEventArgs e)
@@ -75,29 +80,42 @@ namespace System.Windows.Controls.DragNDrop
             // otherwise drops are triggered even if no node was selected in drop
             draggableItems = null;
         }
+
         internal override void OnMouseMove(MouseEventArgs e)
         {
-            if (!IsLeftButtonDown ||CheckOverScrollBar(e.GetPosition(TreeView)))
+            IsDragging = false;
+
+            if (!IsLeftButtonDown || CheckOverScrollBar(e.GetPosition(TreeView)))
             {
                 CleanUpAdorners();
-
                 return;
             }
 
             if (!CanDrag) return;
 
-            DragContent dragData = new DragContent();
-            foreach (var item in draggableItems)
-            {                
-                DragParameters dragParameters = new DragParameters(item);
-                TreeView.DragCommand.Execute(dragParameters);
-                dragData.Add(dragParameters.DraggedObject);
-            }
+            //drag actually starting?
+            Point mousePos = e.GetPosition(null);
+            Vector diff = dragStartPoint - mousePos;
 
-            DragStart(dragData);
-            DragDo(dragData);
-            DragEnd();
-            e.Handled = true;
+            if (e.LeftButton == MouseButtonState.Pressed
+                && (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance || Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
+            {
+
+                IsDragging = true;
+
+                DragContent dragData = new DragContent();
+                foreach (var item in draggableItems)
+                {
+                    DragParameters dragParameters = new DragParameters(item);
+                    TreeView.DragCommand.Execute(dragParameters);
+                    dragData.Add(dragParameters.DraggedObject);
+                }
+
+                DragStart(dragData);
+                DragDo(dragData);
+                DragEnd();
+                e.Handled = true;
+            }
         }
 
         private void CleanUpAdorners()
@@ -342,21 +360,14 @@ namespace System.Windows.Controls.DragNDrop
         {
             if (TreeView.DragCommand == null) return new List<TreeViewExItem>();
             
-            List<TreeViewExItem> items = TreeView.GetTreeViewItemsFor(TreeView.SelectedItems).ToList();
+            List<TreeViewExItem> items = TreeView.GetTreeViewItemsFor(TreeView.SelectedItems)
+                .Where(item => TreeView.DragCommand.CanExecute(new DragParameters(item))).ToList();
+
             TreeViewExItem itemUnderMouse = GetTreeViewItemUnderMouse(mousePositionRelativeToTree);
             if(itemUnderMouse == null) return new List<TreeViewExItem>();
                 
             if (items.Contains(itemUnderMouse))
             {
-                foreach (var item in items)
-                {
-                    if (!TreeView.DragCommand.CanExecute(new DragParameters(item)))
-                    {
-                        // if one item is not draggable, nothing can be dragged
-                        return new List<TreeViewExItem>();
-                    }
-                }
-
                 return items;
             }
 
